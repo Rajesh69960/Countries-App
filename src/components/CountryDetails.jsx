@@ -14,15 +14,16 @@ const CountryDetails = () => {
   const [notFound, setNotFound] = useState(false)
 
   const updateCountryData = (data) => {
+    console.log(data)
     setCountryData({
       flag: data.flags.svg,
       name: data.name.common || data.name,
-      nativeName: Object.values(data.name.nativeName || {})[0].common,
-      population: data.population.toLocaleString(),
-      region: data.region,
-      subRegion: data.subregion,
-      capital: data.capital?.join(", "),
-      topLevelDomain: data.tld.join(" ,"),
+      nativeName: Object.values(data.name.nativeName || {})[0]?.common,
+      population: data?.population?.toLocaleString(),
+      region: data?.region,
+      subRegion: data?.subregion,
+      capital: data?.capital || null,
+      topLevelDomain: data?.tld,
       currencies: Object.values(data.currencies || {})
         .map((currency) => currency.name)
         .join(", "),
@@ -82,7 +83,7 @@ const CountryDetails = () => {
           />
 
           <div className="text-container">
-            <h2 className="title-name">{countryData.name}</h2>
+            <h2 className="title-name">{countryData.nativeName}</h2>
             <div className="text-contain">
               <p>
                 <b> Native name: </b>
